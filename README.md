@@ -8,4 +8,11 @@ file used to create the tidy data frames and the text files containing
 the tidy data.  Finally the repository contains a codebook that describes
 the original data sets and the tidy data sets.
 
+A full description of the Samsung dataset is at:
+
+http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
+
+The raw data sets used in the course project are at:
+https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
+
 Repository created June 2014
