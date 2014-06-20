@@ -89,104 +89,93 @@ length (traindf)
 table(traindf$V562,traindf$V563)
  
 #Test data
-# 
-# testdf <- read.table("./data/X_test.txt")
-# head(testdf)
-# length(testdf)
-# nrow(testdf)
-# 
-# # Add Descriptive variable names
-# 
-# names(testdf)
-# names(testdf) <- variablenames[,2]
-# names(testdf)
-# 
-# subjecttest <- read.table("./data/subject_test.txt")
-# table(subjecttest$V1)
-# nrow(subjecttest)
-# 
-# activitytest <- read.table("./data/y_test.txt")
-# table(activitytest$V1)
-# nrow(activitytest)
-# 
-# # Add descriptive names to activity values
-# 
-# activitylabels <- read.table("./data/activity_labels.txt")
-# 
-# activitytest$activitylabel <- "nothing_yet"
-# activitytest$activitylabel[activitytest$V1 == 1] <- "WALKING"
-# activitytest$activitylabel[activitytest$V1 == 2] <- "WALKING_UPSTAIRS"
-# activitytest$activitylabel[activitytest$V1 == 3] <- "WALKING_DOWNSTAIRS"
-# activitytest$activitylabel[activitytest$V1 == 4] <- "SITTING"
-# activitytest$activitylabel[activitytest$V1 == 5] <- "STANDING"
-# activitytest$activitylabel[activitytest$V1 == 6] <- "LAYING"
-# 
-# activitytest$activitylabel
-# names(activitytest)
-# 
-# testdf[,562] <- subjecttest[,1]
-# length(testdf)
-# 
-# testdf[,563] <- activitytest[,2]
-# length (testdf)
-# 
-# names(testdf)
-# 
-# table(testdf$V562,testdf$V563)
-# 
-# #combine train and test data
-# 
-# alldata <- rbind(traindf,testdf)
-# names(alldata)[562] <- "volunteer"
-# names(alldata)[563] <- "activity"
+ 
+testdf <- read.table("./data/X_test.txt")
+dim(testdf)
+ 
+# Add Descriptive variable names
+ 
+names(testdf) <- variablenames[,2]
+ 
+subjecttest <- read.table("./data/subject_test.txt")
+table(subjecttest$V1)
+dim(subjecttest)
+ 
+activitytest <- read.table("./data/y_test.txt")
+table(activitytest$V1)
+dim(activitytest)
+ 
+# Add descriptive names to activity values
+ 
+activitylabels <- read.table("./data/activity_labels.txt")
+ 
+activitytest$activitylabel <- "nothing_yet"
+activitytest$activitylabel[activitytest$V1 == 1] <- "WALKING"
+activitytest$activitylabel[activitytest$V1 == 2] <- "WALKING_UPSTAIRS"
+activitytest$activitylabel[activitytest$V1 == 3] <- "WALKING_DOWNSTAIRS"
+activitytest$activitylabel[activitytest$V1 == 4] <- "SITTING"
+activitytest$activitylabel[activitytest$V1 == 5] <- "STANDING"
+activitytest$activitylabel[activitytest$V1 == 6] <- "LAYING"
+ 
+activitytest$activitylabel
+names(activitytest)
+ 
+testdf[,562] <- subjecttest[,1]
+dim(testdf)
+ 
+testdf[,563] <- activitytest[,2]
+dim(testdf)
+ 
+table(testdf$V562,testdf$V563)
+
+#combine train and test data
+ 
+alldata <- rbind(traindf,testdf)
+names(alldata)[562] <- "volunteer"
+names(alldata)[563] <- "activity"
 # head(alldata)
-# dim(alldata)
-# 
-# #Find only mean measure variables
-# 
-# meanindex <- grep("mean|std",variablenames$V2)
+dim(alldata)
+ 
+#Find only mean measure variables
+ 
+meanindex <- grep("mean|std",variablenames$V2)
 # meanindex
-# length(meanindex)
-# meanindex[80] <- 562
-# meanindex[81] <- 563
-# 
-# # get reduced set of mean and std data
-# 
-# tidyextract <- alldata[,meanindex]
-# dim(tidyextract)
+length(meanindex)
+meanindex[80] <- 562
+meanindex[81] <- 563
+ 
+# get reduced set of mean and std data
+ 
+tidyextract <- alldata[,meanindex]
+dim(tidyextract)
 # head(tidyextract)
-# 
-# # write the extracted data to a csv file
-# 
-# if (!file.exists("./data/tada.csv")) {
-#   write.csv(tidyextract, file = "./data/tada.csv")
-# }
-# 
-# # create file of data grouped by volunteer, activity
-# 
-# tesummary <- tidyextract
-# 
-# 
-# 
-# dg <- group_by(tidyextract, volunteer, activity)
-# # the names of the columns you want to summarize
-# cols <- names(tidyextract)[1:79]
+ 
+# write the extracted data to a csv file
+ 
+if (!file.exists("./data/movement_means_std.csv")) {
+   write.csv(tidyextract, file = "./data/movement_means_std.csv")
+}
+ 
+# create file of data grouped by volunteer, activity
+ 
+tesummary <- tidyextract
+ 
+dg <- group_by(tidyextract, volunteer, activity)
+# the names of the columns you want to summarize
+cols <- names(tidyextract)[1:79]
 # cols
-# # the dots component of your call to summarise
-# dots <- sapply(cols ,function(x) substitute(mean(x), list(x=as.name(x))))
-# tesum <- do.call(summarise, c(list(.data=dg), dots))
+# the dots component of your call to summarise
+dots <- sapply(cols ,function(x) substitute(mean(x), list(x=as.name(x))))
+tesum <- do.call(summarise, c(list(.data=dg), dots))
 # tesum[,1:3]
-# dim(tesum)
-# 
-# # write the extracted summary data to a csv file
-# 
-# if (!file.exists("./data/tada2.csv")) {
-#   write.csv(tesum, file = "./data/tada2.csv")
-# }
-# 
-# 
-# ```
-# 
+dim(tesum)
+ 
+# write the extracted summary data to a csv file
+ 
+if (!file.exists("./data/movement_group_by_volunteer_activity.csv")) {
+   write.csv(tesum, file = "./data/movement_group_by_volunteer_activity.csv")
+}
+
 # Please upload a tidy data set according to the instructions in the project description. Please upload your data set as a separate file (do not cut and paste a dataset directly into the text box, as this may cause errors saving your submission).  
 # 
 # Please submit a link to a Github repo with the code for performing your analysis. The code should have a file run_analysis.R in the main directory that can be run as long as the Samsung data is in your working directory. The output should be the tidy data set you submitted for part 1. You should include a README.md in the repo describing how the script works.  
