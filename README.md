@@ -5,8 +5,9 @@ data gathered by Samsung smartphones.  These data files were processed
 to create tidy data frames required for the Getting and Cleaning Data
 course project.  The repository also contains the run_analysis.R script
 file used to create the tidy data frames and the text files containing
-the tidy data.  Finally the repository contains a codebook that describes
-the original data sets and the tidy data sets.
+the tidy data.  The run_analysis script provides step-by-step comments 
+describing the data processingFinally the repository contains a codebook 
+that describes the original data sets and the tidy data sets.
 
 A full description of the Samsung dataset is at:
 
