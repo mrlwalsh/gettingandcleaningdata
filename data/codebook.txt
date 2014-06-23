@@ -1,3 +1,18 @@
+This codebook describes the two data files submitted for 
+the Getting and cleaning Dara course project. 
+
+There are two significant changes to the original smartphone
+data sets.
+
+The first submitted data set contains all trainginf and test
+records from the smartphone data, but only the mean and 
+standard deviation measurements are included in the first 
+submitted data set.
+
+The second data set contains data grouped by volunteer and activity
+with all measurements summarized by using the mean of the grouped 
+measurements.
+
 ==================================================================
 Human Activity Recognition Using Smartphones Dataset
 Version 1.0
